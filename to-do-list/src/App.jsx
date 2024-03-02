@@ -1,6 +1,7 @@
 import './styles/App.css';
 import { useState } from "react";
 import TaskContainer from './components/TaskContainer';
+import CompletedTasks from './components/CompletedTasks';
 
 const App = () => {
   const [tasks, setTasks] = useState(new Map());
@@ -41,25 +42,31 @@ const App = () => {
     <div className="App">
       <h1 className="project-name-header">To Do List</h1>
 
-      <input type="text" 
-      name="taskName" 
-      placeholder="Enter your task..." value={currTaskName} onChange={handleInputChange} />
-      <button className="add-task-btn" onClick={buttonClicked}>+</button>
+      <div className="add-new-task-input-group">
+        <input type="text" 
+        name="taskName" 
+        placeholder="Enter the name of your task..." value={currTaskName} onChange={handleInputChange} />
+        <button onClick={buttonClicked}>+</button>
+      </div>
 
       {tasks.size === 0 ? 
-        <p>No tasks :( Click the [+] button to add a task!</p>
+        <p className="no-tasks-text">No tasks :( Click the [+] button to add a task!</p>
         :
-        <div className="tasks-container">
-          {[...tasks.entries()].map(([task, taskInfo]) => (
-            <TaskContainer key={taskInfo.id} 
-            id={taskInfo.id}
-            mainTask={task} 
-            subtasks={taskInfo.subtasks} 
-            priority={taskInfo.priority} 
-            taskStatus={taskInfo.taskStatus} 
-            dueDate={taskInfo.dueDate}
-            />
-          ))}
+        <div className="appContent">
+          <div className="tasks-container">
+            {[...tasks.entries()].map(([task, taskInfo]) => (
+              <TaskContainer key={taskInfo.id} 
+              id={taskInfo.id}
+              mainTask={task} 
+              subtasks={taskInfo.subtasks} 
+              priority={taskInfo.priority} 
+              taskStatus={taskInfo.taskStatus} 
+              dueDate={taskInfo.dueDate}
+              />
+            ))}
+          </div>
+
+          <CompletedTasks />
         </div>
       }
       

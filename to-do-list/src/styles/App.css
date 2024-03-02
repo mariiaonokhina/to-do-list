@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f9f4ef;
+}
+
+.project-name-header {
+    color: #020826;
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    font-size: 84px;
+}
+
+.add-new-task-input-group {
+    width: fit-content;
+    height: 4vh;
+    display: flex;
+    flex-direction: row;
+    place-items: center;
+    justify-content: center;
+    margin: 2vh 0;
+}
+
+.add-new-task-input-group input {
+    background-color: #fffffe;
+    height: inherit;
+    width: 30vw;
+    border-radius: 20px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    font-size: large;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    border: 3px solid #8c7851;
+    border-right: none;
+}
+
+.add-new-task-input-group button {
+    background-color: #8bd3dd;
+    height: 4.58vh;
+    width: 3vw;
+    font-size: x-large;
+    border: 3px solid #8c7851;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.add-new-task-input-group button:hover {
+    cursor: pointer;
+}
+
+p {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h2, h3 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.no-tasks-text {
+    margin-top: 3vh;
+}
