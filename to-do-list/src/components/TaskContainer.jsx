@@ -7,8 +7,8 @@ import "../styles/TaskContainer.css"
 const TaskContainer = ({mainTask, id, subtasks, priority, taskStatus, dueDate}) => {
     return(
         <div className={`TaskContainer ${priority}`}>
-            <Task task={mainTask} />
-            {id} {priority} {taskStatus} {dueDate}
+
+            <Task task={mainTask} dueDate={dueDate}/>
 
             {subtasks.map(subtask => (
                 <Subtask key={subtask} subtask={subtask} />

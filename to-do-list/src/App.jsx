@@ -51,7 +51,10 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1 className="project-name-header">To Do List</h1>
+      <div className="website-title-container">
+        <img className="checkmark-logo" src="./images/square-check-solid.svg" alt="Website logo: a checkmark"></img>
+        <h1 className="project-name-header">To Do List</h1>
+      </div>
 
       <div className="add-new-task-input-group">
         <input type="text" 
