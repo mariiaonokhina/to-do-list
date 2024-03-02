@@ -4,7 +4,8 @@
 }
 
 .App {
-    height: 100vh;
+    min-height: 100vh;
+    height: fit-content;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -22,7 +23,7 @@
 
 .add-new-task-input-group {
     width: fit-content;
-    height: 4vh;
+    height: 5vh;
     display: flex;
     flex-direction: row;
     place-items: center;
@@ -48,7 +49,7 @@
 
 .add-new-task-input-group button {
     background-color: #8bd3dd;
-    height: 4.58vh;
+    height: inherit;
     width: 3vw;
     font-size: x-large;
     border: 3px solid #8c7851;
@@ -66,12 +67,18 @@ p {
     font-style: normal;
 }
 
-h2, h3 {
+.no-tasks-text {
+    margin-top: 3vh;
+}
+
+.accordion {
+    width: 50vw;
     font-family: "Roboto", sans-serif;
-    font-weight: 700;
+    font-weight: 400;
     font-style: normal;
 }
 
-.no-tasks-text {
-    margin-top: 3vh;
+.accordion-header .accordion-button {
+    background-color: #8c7851;
+    color: #fffffe;
 }

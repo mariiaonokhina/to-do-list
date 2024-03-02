@@ -1,6 +1,7 @@
 import "../styles/Task.css";
 import Task from "./Task";
 import Subtask from "./Subtask";
+import "../styles/TaskContainer.css"
 
 /* eslint-disable react/prop-types */
 const TaskContainer = ({mainTask, id, subtasks, priority, taskStatus, dueDate}) => {
