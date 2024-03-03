@@ -12,17 +12,13 @@ const Task = ({task, dueDate}) => {
 
             <div className="task-tools">
                 <button className="task-tool-btn">
-                    <img className="task-tool-img" src="./images/x-solid.svg"/>
-                </button>
-
-                <button className="task-tool-btn">
                     <img className="task-tool-img" src="./images/pen-to-square-solid.svg"/>
                 </button>
-            </div>
 
-            <button className="task-tool-btn">
-                <img className="task-tool-img" src="./images/plus-solid.svg"/>
-            </button>
+                <button className="task-tool-btn add-subtask-btn">
+                    <img className="task-tool-img" src="./images/plus-solid.svg"/>
+                </button>
+            </div>
         </div>
     )
 }

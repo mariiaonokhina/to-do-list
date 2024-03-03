@@ -58,8 +58,10 @@ const App = () => {
 
       <div className="add-new-task-input-group">
         <input type="text" 
+        className="enter-name"
         name="taskName" 
         placeholder="Enter the name of your task..." value={currTaskName} onChange={handleInputChange} />
+         <input type="date" className="enter-date"/>
         <button onClick={buttonClicked}>+</button>
       </div>
 
