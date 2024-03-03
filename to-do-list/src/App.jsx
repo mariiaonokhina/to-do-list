@@ -38,7 +38,7 @@ const getTomorrowsDate = () => {
     setCurrDueDate(event.target.value);
   }
 
-  const buttonClicked = () => {
+  const addTask = () => {
     const effectiveTaskName = currTaskName.trim();
   
     // Check for duplicate task
@@ -75,6 +75,14 @@ const getTomorrowsDate = () => {
     setShowNoTaskNameWarning(false);
   }
 
+  const deleteTask = (taskName) => {
+    setTasks((prevTasks) => {
+      const newTasks = new Map(prevTasks);
+      newTasks.delete(taskName);
+      return newTasks;
+    });
+  };
+
   return (
     <div className="App">
       <div className="website-title-container">
@@ -91,7 +99,7 @@ const getTomorrowsDate = () => {
 
           <input type="date" className="enter-date" onChange={handleInputDateChange} />
 
-          <button onClick={buttonClicked}>+</button>
+          <button onClick={addTask}>+</button>
         </div>
 
         <div className="input-warnings">
@@ -115,7 +123,8 @@ const getTomorrowsDate = () => {
                   subtasks={taskInfo.subtasks} 
                   priority={taskInfo.priority} 
                   taskStatus={taskInfo.taskStatus} 
-                  dueDate={taskInfo.dueDate}
+                  dueDate={taskInfo.dueDate} 
+                  deleteTask={() => deleteTask(task)}
                 />
               ))}
             </Accordion.Body>

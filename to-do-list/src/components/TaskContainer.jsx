@@ -4,7 +4,7 @@ import Subtask from "./Subtask";
 import "../styles/TaskContainer.css"
 
 /* eslint-disable react/prop-types */
-const TaskContainer = ({mainTask, id, subtasks, priority, taskStatus, dueDate}) => {
+const TaskContainer = ({mainTask, id, subtasks, priority, taskStatus, dueDate, deleteTask}) => {
     return(
         <div className="TaskContainer">
 
@@ -14,10 +14,10 @@ const TaskContainer = ({mainTask, id, subtasks, priority, taskStatus, dueDate}) 
                 <Subtask key={subtask} subtask={subtask} />
             ))}
 
-            <button className="task-tool-btn delete-super-task-btn">
-                <img className="task-tool-img delete-super-task-img" src="./images/x-solid.svg"/>
+            <button className="task-tool-btn delete-super-task-btn" onClick={deleteTask}>
+                <img className="task-tool-img delete-super-task-img" src="./images/x-solid.svg" alt="Delete"/>
             </button>
         </div>
-    )
-}
+    );
+};
 export default TaskContainer;
