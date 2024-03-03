@@ -41,7 +41,7 @@
     font-size: 84px;
 }
 
-.add-new-task-input-group {
+.inputs {
     width: fit-content;
     height: 5vh;
     display: flex;
@@ -51,7 +51,7 @@
     margin: 2vh 0;
 }
 
-.add-new-task-input-group input {
+.inputs input {
     background-color: #fffffe;
     height: inherit;
     font-size: large;
@@ -74,7 +74,7 @@
     cursor: pointer;
 }
 
-.add-new-task-input-group button {
+.inputs button {
     background-color: #8bd3dd;
     height: inherit;
     width: 3vw;
@@ -84,7 +84,7 @@
     border-bottom-right-radius: 20px;
 }
 
-.add-new-task-input-group button:hover {
+.inputs button:hover {
     cursor: pointer;
 }
 
@@ -108,4 +108,8 @@ p {
 .accordion-header .accordion-button {
     background-color: #8c7851;
     color: #fffffe;
+}
+
+.input-warnings {
+    color: #f25042;
 }

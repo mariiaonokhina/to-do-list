@@ -6,10 +6,21 @@ import CompletedTasks from './components/CompletedTasks';
 import Accordion from 'react-bootstrap/Accordion';
 
 const App = () => {
+const getTomorrowsDate = () => {
+  const today = new Date();
+  const month = (today.getMonth() + 1) < 10? "0" + (today.getDate() + 1): (today.getDate() + 1);
+  const year = today.getFullYear();
+  const date = (today.getDate() + 1) < 10? "0" + (today.getDate() + 1): (today.getDate() + 1);
+  return `${year}-${month}-${date}`;
+}
+
   const [tasks, setTasks] = useState(new Map());
   const [taskCount, setTaskCount] = useState(0);
   const [currTaskName, setCurrTaskName] = useState("");
-  const [showWarning, setShowWarning] = useState(false);
+  // By default, the due date will be tomorrow
+  const [currDueDate, setCurrDueDate] = useState(getTomorrowsDate());
+  const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
+  const [showNoTaskNameWarning, setShowNoTaskNameWarning] = useState(false);
   const [activeAccordionKey, setActiveAccordionKey] = useState('0');
 
   // Toggle accordion items (ToDos and Completed Tasks)
@@ -19,25 +30,37 @@ const App = () => {
     }
   }, [activeAccordionKey]);
 
-  const handleInputChange = (event) => {
+  const handleInputNameChange = (event) => {
     setCurrTaskName(event.target.value);
   }
 
+  const handleInputDateChange = (event) => {
+    setCurrDueDate(event.target.value);
+  }
+
   const buttonClicked = () => {
-    const effectiveTaskName = currTaskName.trim() || "New Task";
+    const effectiveTaskName = currTaskName.trim();
   
     // Check for duplicate task
     if (tasks.has(effectiveTaskName)) {
-      alert("Duplicate task name!");
+      setShowDuplicateWarning(true);
+      setShowNoTaskNameWarning(false);
       return;
     }
-  
+
+    // Check if the user didn't enter a name for their task
+    if (currTaskName == "") {
+      setShowNoTaskNameWarning(true);
+      setShowDuplicateWarning(false);
+      return;
+    }
+
     const newTask = {
       subtasks: [],
       id: taskCount,
       priority: "low",
       taskStatus: "new",
-      dueDate: "Jan 1st"
+      dueDate: currDueDate != ""? currDueDate: getTomorrowsDate()
     };
   
     const newTasks = new Map(tasks).set(effectiveTaskName, newTask);
@@ -46,7 +69,10 @@ const App = () => {
     setTaskCount(taskCount + 1);
 
     setCurrTaskName("");
-    setActiveAccordionKey('0');   // Open MyToDos part of the accordion
+    setCurrDueDate(currDueDate);
+    setActiveAccordionKey("0");   // Open MyToDos part of the accordion
+    setShowDuplicateWarning(false);
+    setShowNoTaskNameWarning(false);
   }
 
   return (
@@ -57,12 +83,21 @@ const App = () => {
       </div>
 
       <div className="add-new-task-input-group">
-        <input type="text" 
-        className="enter-name"
-        name="taskName" 
-        placeholder="Enter the name of your task..." value={currTaskName} onChange={handleInputChange} />
-         <input type="date" className="enter-date"/>
-        <button onClick={buttonClicked}>+</button>
+        <div className="inputs">
+          <input type="text" 
+          className="enter-name"
+          name="taskName" 
+          placeholder="Enter the name of your task..." value={currTaskName} onChange={handleInputNameChange} />
+
+          <input type="date" className="enter-date" onChange={handleInputDateChange} />
+
+          <button onClick={buttonClicked}>+</button>
+        </div>
+
+        <div className="input-warnings">
+          {showNoTaskNameWarning? <p className="input-warning">Enter a name for your task.</p>:""}
+          {showDuplicateWarning? <p className="input-warning">This task already exists.</p>:""}
+        </div>
       </div>
 
       {tasks.size === 0 ? 
