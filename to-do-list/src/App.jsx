@@ -6,19 +6,19 @@ import CompletedTasks from './components/CompletedTasks';
 import Accordion from 'react-bootstrap/Accordion';
 
 const App = () => {
-const getTomorrowsDate = () => {
+const getDate = () => {
   const today = new Date();
-  const month = (today.getMonth() + 1) < 10? "0" + (today.getDate() + 1): (today.getDate() + 1);
+  const month = today.getMonth() < 10? "0" + today.getDate(): today.getDate();
   const year = today.getFullYear();
-  const date = (today.getDate() + 1) < 10? "0" + (today.getDate() + 1): (today.getDate() + 1);
+  const date = today.getDate() < 10? "0" + today.getDate(): today.getDate();
   return `${year}-${month}-${date}`;
 }
 
   const [tasks, setTasks] = useState(new Map());
   const [taskCount, setTaskCount] = useState(0);
   const [currTaskName, setCurrTaskName] = useState("");
-  // By default, the due date will be tomorrow
-  const [currDueDate, setCurrDueDate] = useState(getTomorrowsDate());
+  // By default, the due date will be today
+  const [currDueDate, setCurrDueDate] = useState(getDate());
   const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
   const [showNoTaskNameWarning, setShowNoTaskNameWarning] = useState(false);
   const [activeAccordionKey, setActiveAccordionKey] = useState('0');
@@ -60,7 +60,7 @@ const getTomorrowsDate = () => {
       id: taskCount,
       priority: "low",
       taskStatus: "new",
-      dueDate: currDueDate != ""? currDueDate: getTomorrowsDate()
+      dueDate: currDueDate != ""? currDueDate: getDate()
     };
   
     const newTasks = new Map(tasks).set(effectiveTaskName, newTask);
@@ -95,9 +95,15 @@ const getTomorrowsDate = () => {
           <input type="text" 
           className="enter-name"
           name="taskName" 
-          placeholder="Enter the name of your task..." value={currTaskName} onChange={handleInputNameChange} />
+          placeholder="Enter the name of your task..." value={currTaskName} onChange={handleInputNameChange} 
+          />
 
-          <input type="date" className="enter-date" onChange={handleInputDateChange} />
+          <input type="date" 
+          className="enter-date" 
+          onChange={handleInputDateChange} 
+          value={currDueDate} 
+          min={currDueDate}
+          />
 
           <button onClick={addTask}>+</button>
         </div>
