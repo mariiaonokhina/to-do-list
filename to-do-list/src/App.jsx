@@ -6,7 +6,7 @@ import CompletedTasks from './components/CompletedTasks';
 import Accordion from 'react-bootstrap/Accordion';
 
 const App = () => {
-const getDate = () => {
+const getToday = () => {
   const today = new Date();
   const month = today.getMonth() < 10? "0" + today.getDate(): today.getDate();
   const year = today.getFullYear();
@@ -18,7 +18,7 @@ const getDate = () => {
   const [taskCount, setTaskCount] = useState(0);
   const [currTaskName, setCurrTaskName] = useState("");
   // By default, the due date will be today
-  const [currDueDate, setCurrDueDate] = useState(getDate());
+  const [currDueDate, setCurrDueDate] = useState(getToday());
   const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
   const [showNoTaskNameWarning, setShowNoTaskNameWarning] = useState(false);
   const [activeAccordionKey, setActiveAccordionKey] = useState('0');
@@ -60,7 +60,7 @@ const getDate = () => {
       id: taskCount,
       priority: "low",
       taskStatus: "new",
-      dueDate: currDueDate != ""? currDueDate: getDate()
+      dueDate: currDueDate != ""? currDueDate: getToday()
     };
   
     const newTasks = new Map(tasks).set(effectiveTaskName, newTask);
@@ -102,7 +102,7 @@ const getDate = () => {
           className="enter-date" 
           onChange={handleInputDateChange} 
           value={currDueDate} 
-          min={currDueDate}
+          min={getToday()}
           />
 
           <button onClick={addTask}>+</button>
