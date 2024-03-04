@@ -1,10 +1,23 @@
 import "../styles/Task.css";
+import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 const Task = ({task, dueDate}) => {
+    const [isCompleted, setIsCompleted] = useState(false);
+
+    const checkHandler = () => {
+        setIsCompleted(!isCompleted);
+    }
+
     return(
-        <div className="Task">
-            <input className="checkbox" name="checkbox" type="checkbox" />
+        <div className={`Task ${isCompleted ? 'completed' : ''}`}>
+            <input 
+            className="checkbox" 
+            name="checkbox" 
+            type="checkbox" 
+            checked={isCompleted}
+            onChange={checkHandler}
+            />
             
             <span className="task-name">{task}</span>
 

@@ -14,9 +14,9 @@
 /* Hide delete button by default */
 .delete-super-task-btn {
     display: none;
-  }
-  
-  /* Show delete button on hover over TaskContainer */
-  .TaskContainer:hover .delete-super-task-btn {
+}
+
+/* Show delete button on hover over the task container */
+.TaskContainer:hover .delete-super-task-btn {
     display: block;
-  }
+}
