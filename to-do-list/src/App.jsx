@@ -17,6 +17,7 @@ const App = () => {
   const [taskCount, setTaskCount] = useState(0);
   const [currTaskName, setCurrTaskName] = useState("");
   const [currDueDate, setCurrDueDate] = useState(getToday());
+  const [currPriority, setCurrPriority] = useState("low");
   const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
   const [showNoTaskNameWarning, setShowNoTaskNameWarning] = useState(false);
   const [activeAccordionKey, setActiveAccordionKey] = useState("0");
@@ -28,6 +29,10 @@ const App = () => {
 
   const handleInputDateChange = (event) => {
     setCurrDueDate(event.target.value);
+  }
+
+  const handleInputPriorityChange = (event) => {
+    setCurrPriority(event.target.value);
   }
 
   const addTask = () => {
@@ -48,8 +53,8 @@ const App = () => {
     const newTask = {
       id: taskCount,
       mainTask: effectiveTaskName,
-      subtasks: [],
-      priority: "low",
+      subtasks: ["subtask"],
+      priority: currPriority,
       taskStatus: "new",
       dueDate: currDueDate !== "" ? currDueDate : getToday(),
       completed: false
@@ -61,6 +66,7 @@ const App = () => {
     setTaskCount(taskCount + 1);
     setCurrTaskName("");
     setCurrDueDate(currDueDate);
+    setCurrPriority("low")
     setActiveAccordionKey("0"); // Open MyToDos part of the accordion
     setShowDuplicateWarning(false);
     setShowNoTaskNameWarning(false);
@@ -117,6 +123,12 @@ const App = () => {
                  placeholder="Enter the name of your task..."
                  value={currTaskName}
                  onChange={handleInputNameChange} />
+                
+          <select name="priority" className="priority-select" onChange={handleInputPriorityChange}>
+            <option value="low">Low Priority</option>
+            <option value="medium">Medium Priority</option>
+            <option value="high">High Priority</option>
+          </select>
 
           <input type="date"
                  className="enter-date"

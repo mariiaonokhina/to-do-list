@@ -3,15 +3,16 @@ import Subtask from './Subtask';
 import '../styles/TaskContainer.css';
 
 // eslint-disable-next-line react/prop-types
-const TaskContainer = ({id, mainTask, subtasks, priority, taskStatus, dueDate, deleteTask, toggleCompletion, isCompleted}) => {
+const TaskContainer = ({mainTask, subtasks, priority, taskStatus, dueDate, deleteTask, toggleCompletion, isCompleted}) => {
   return (
     <div className="TaskContainer">
 
       <Task 
         taskName={mainTask} 
         dueDate={dueDate} 
-        toggleCompletion={() => toggleCompletion(mainTask)}
-        isCompleted={isCompleted}
+        toggleCompletion={() => toggleCompletion(mainTask)} 
+        isCompleted={isCompleted} 
+        priority={priority}
       />
 
       {subtasks && subtasks.map((subtask, index) => (

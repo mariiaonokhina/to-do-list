@@ -51,7 +51,7 @@
     margin: 2vh 0;
 }
 
-.inputs input {
+.inputs input, .inputs select {
     background-color: #fffffe;
     height: inherit;
     font-size: large;
@@ -84,7 +84,7 @@
     border-bottom-right-radius: 20px;
 }
 
-.inputs button:hover {
+.inputs button:hover, select:hover{
     cursor: pointer;
 }
 

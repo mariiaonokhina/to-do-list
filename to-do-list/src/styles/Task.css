@@ -51,3 +51,15 @@
     cursor: pointer;
     transform: scale(101%);
 }
+
+.low {
+    background-color: #77DD77;
+}
+
+.medium {
+    background-color: #FDFD96;
+}
+
+.high {
+    background-color: #FF6961;
+}

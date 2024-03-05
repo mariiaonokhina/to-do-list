@@ -1,9 +1,9 @@
 import "../styles/Task.css";
 
 // eslint-disable-next-line react/prop-types
-const Task = ({taskName, dueDate, toggleCompletion, isCompleted}) => {
+const Task = ({taskName, dueDate, toggleCompletion, isCompleted, priority}) => {
     return (
-        <div className={`Task ${isCompleted ? 'completed' : ''}`}>
+        <div className={`Task ${isCompleted ? 'completed' : ''} ${priority}`}>
             <input 
             className="checkbox" 
             type="checkbox" 
