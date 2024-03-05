@@ -1,6 +1,7 @@
 import "../styles/Task.css";
 
-const Task = (taskName, dueDate, toggleCompletion, isCompleted) => {
+// eslint-disable-next-line react/prop-types
+const Task = ({taskName, dueDate, toggleCompletion, isCompleted}) => {
     return (
         <div className={`Task ${isCompleted ? 'completed' : ''}`}>
             <input 
@@ -15,7 +16,7 @@ const Task = (taskName, dueDate, toggleCompletion, isCompleted) => {
 
             <div className="task-tools">
                 <button className="task-tool-btn">
-                    <img className="task-tool-img" src="./images/pen-to-square-solid.svg" alt="Edit"/>
+                    <img className="task-tool-img" src="./images/pen-to-square-solid.svg" alt="Edit Task"/>
                 </button>
 
                 <button className="task-tool-btn add-subtask-btn">

@@ -2,7 +2,8 @@ import Task from './Task';
 import Subtask from './Subtask';
 import '../styles/TaskContainer.css';
 
-const TaskContainer = (id, mainTask, subtasks, priority, taskStatus, dueDate, deleteTask, toggleCompletion, isCompleted) => {
+// eslint-disable-next-line react/prop-types
+const TaskContainer = ({id, mainTask, subtasks, priority, taskStatus, dueDate, deleteTask, toggleCompletion, isCompleted}) => {
   return (
     <div className="TaskContainer">
 
@@ -17,7 +18,7 @@ const TaskContainer = (id, mainTask, subtasks, priority, taskStatus, dueDate, de
         <Subtask key={index} {...subtask} />
       ))}
 
-      <button className="delete-task-btn" onClick={deleteTask}>
+      <button className="delete-super-task-btn" onClick={deleteTask}>
         Delete
       </button>
     </div>
