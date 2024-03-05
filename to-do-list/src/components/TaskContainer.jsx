@@ -1,23 +1,28 @@
-import "../styles/Task.css";
-import Task from "./Task";
-import Subtask from "./Subtask";
-import "../styles/TaskContainer.css"
+import React from 'react';
+import Task from './Task'; // Import Task component
+import Subtask from './Subtask'; // Ensure you have this component
+import '../styles/TaskContainer.css'; // Ensure you have styles defined
 
-/* eslint-disable react/prop-types */
-const TaskContainer = ({mainTask, id, subtasks, priority, taskStatus, dueDate, deleteTask}) => {
-    return(
-        <div className="TaskContainer">
-
-            <Task task={mainTask} dueDate={dueDate}/>
-
-            {subtasks.map(subtask => (
-                <Subtask key={subtask} subtask={subtask} />
-            ))}
-
-            <button className="task-tool-btn delete-super-task-btn" onClick={deleteTask}>
-                <img className="task-tool-img delete-super-task-img" src="./images/x-solid.svg" alt="Delete"/>
-            </button>
-        </div>
-    );
+const TaskContainer = ({ id, mainTask, subtasks, priority, taskStatus, dueDate, deleteTask, toggleCompletion, isCompleted }) => {
+  return (
+    <div className="TaskContainer">
+      {/* Display the main task */}
+      <Task 
+        taskName={mainTask} 
+        dueDate={dueDate} 
+        toggleCompletion={() => toggleCompletion(mainTask)}
+        isCompleted={isCompleted}
+      />
+      {/* Optionally render subtasks */}
+      {subtasks && subtasks.map((subtask, index) => (
+        <Subtask key={index} {...subtask} />
+      ))}
+      {/* Delete button */}
+      <button className="delete-task-btn" onClick={deleteTask}>
+        Delete
+      </button>
+    </div>
+  );
 };
+
 export default TaskContainer;
