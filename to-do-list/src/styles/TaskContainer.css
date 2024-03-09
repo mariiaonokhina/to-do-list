@@ -18,4 +18,6 @@
 /* Show delete button on hover over the task container */
 .TaskContainer:hover .delete-super-task-btn {
     display: block;
+    height: 3vh;
+    width: 3vh;
 }

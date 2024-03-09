@@ -1,5 +1,5 @@
 import './styles/App.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "react-bootstrap";
 import TaskContainer from './components/TaskContainer';
 import Accordion from 'react-bootstrap/Accordion';
@@ -145,45 +145,45 @@ const App = () => {
         </div>
       </div>
 
-      <Accordion className="accordion" activeKey={activeAccordionKey} flush>
-        <Accordion.Item className="todos-container" eventKey="0" onClick={() => toggleAccordion("0")}>
-          <Accordion.Header className="accordion-header">My ToDos</Accordion.Header>
-          <Accordion.Body>
-            {tasks.size === 0 ? "No tasks :( Click the [+] button to add a task!" :
-              [...tasks.entries()].map(([task, taskInfo]) => (
-                <TaskContainer
-                  key={taskInfo.id}
-                  id={taskInfo.id}
-                  mainTask={task}
-                  subtasks={taskInfo.subtasks}
-                  priority={taskInfo.priority}
-                  taskStatus={taskInfo.taskStatus}
-                  dueDate={taskInfo.dueDate}
-                  deleteTask={() => deleteTask(task)}
-                  toggleCompletion={() => toggleTaskCompletion(task)}
-                  isCompleted={taskInfo.completed}
-                />
-              ))
-            }
-          </Accordion.Body>
-        </Accordion.Item>
+  <Accordion className="accordion" activeKey={activeAccordionKey} onSelect={(key) => toggleAccordion(key)} flush>
+  <Accordion.Item className="todos-container" eventKey="0">
+    <Accordion.Header className="accordion-header">My ToDos</Accordion.Header>
+      <Accordion.Body>
+        {tasks.size === 0 ? "No tasks :( Click the [+] button to add a task!" :
+          [...tasks.entries()].map(([task, taskInfo]) => (
+            <TaskContainer
+              key={taskInfo.id}
+              id={taskInfo.id}
+              mainTask={task}
+              subtasks={taskInfo.subtasks}
+              priority={taskInfo.priority}
+              taskStatus={taskInfo.taskStatus}
+              dueDate={taskInfo.dueDate}
+              deleteTask={() => deleteTask(task)}
+              toggleCompletion={() => toggleTaskCompletion(task)}
+              isCompleted={taskInfo.completed}
+            />
+          ))
+        }
+      </Accordion.Body>
+    </Accordion.Item>
 
-        <Accordion.Item className="completed-tasks-container" eventKey="1" onClick={() => toggleAccordion("1")}>
-          <Accordion.Header className="accordion-header">Completed Tasks</Accordion.Header>
-          <Accordion.Body>
-            {completedTasks.size === 0 ? "No completed tasks." :
-              [...completedTasks.entries()].map(([task, taskInfo]) => (
-                <TaskContainer
-                  key={taskInfo.id}
-                  id={taskInfo.id}
-                  mainTask={task}
-                  subtasks={taskInfo.subtasks}
-                  priority={taskInfo.priority}
-                  taskStatus={taskInfo.taskStatus}
-                  dueDate={taskInfo.dueDate}
-                  deleteTask={() => deleteTask(task)}
-                  isCompleted={true}
-                  toggleCompletion={() => toggleTaskCompletion(task)}
+    <Accordion.Item className="completed-tasks-container" eventKey="1">
+      <Accordion.Header className="accordion-header">Completed Tasks</Accordion.Header>
+        <Accordion.Body>
+          {completedTasks.size === 0 ? "No completed tasks." :
+            [...completedTasks.entries()].map(([task, taskInfo]) => (
+              <TaskContainer
+                key={taskInfo.id}
+                id={taskInfo.id}
+                mainTask={task}
+                subtasks={taskInfo.subtasks}
+                priority={taskInfo.priority}
+                taskStatus={taskInfo.taskStatus}
+                dueDate={taskInfo.dueDate}
+                deleteTask={() => deleteTask(task)}
+                isCompleted={true}
+                toggleCompletion={() => toggleTaskCompletion(task)}
                 />
               ))
             }

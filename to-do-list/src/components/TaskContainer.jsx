@@ -3,7 +3,7 @@ import Subtask from './Subtask';
 import '../styles/TaskContainer.css';
 
 // eslint-disable-next-line react/prop-types
-const TaskContainer = ({mainTask, subtasks, priority, taskStatus, dueDate, deleteTask, toggleCompletion, isCompleted}) => {
+const TaskContainer = ({mainTask, subtasks, priority, dueDate, deleteTask, toggleCompletion, isCompleted}) => {
   return (
     <div className="TaskContainer">
 
@@ -20,7 +20,7 @@ const TaskContainer = ({mainTask, subtasks, priority, taskStatus, dueDate, delet
       ))}
 
       <button className="delete-super-task-btn" onClick={deleteTask}>
-        Delete
+        <img className="task-tool-img" src="./images/x-solid.svg"></img>
       </button>
     </div>
   );

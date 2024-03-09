@@ -12,13 +12,10 @@ const Task = ({taskName, dueDate, toggleCompletion, isCompleted, priority}) => {
             />
             
             <span className="task-name">{taskName}</span>
-            <span className="due-date">{dueDate}</span>
+
+            <span className="due-date">Due: {dueDate}</span>
 
             <div className="task-tools">
-                <button className="task-tool-btn">
-                    <img className="task-tool-img" src="./images/pen-to-square-solid.svg" alt="Edit Task"/>
-                </button>
-
                 <button className="task-tool-btn add-subtask-btn">
                     <img className="task-tool-img" src="./images/plus-solid.svg" alt="Add Subtask"/>
                 </button>
