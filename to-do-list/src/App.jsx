@@ -3,6 +3,8 @@ import { useState } from "react";
 import "react-bootstrap";
 import TaskContainer from './components/TaskContainer';
 import Accordion from 'react-bootstrap/Accordion';
+import ModalDeleteTask from './components/ModalDeleteTask';
+import ConfettiExplosion from 'react-confetti-explosion';
 
 const App = () => {
   const getToday = () => {
@@ -22,6 +24,10 @@ const App = () => {
   const [showNoTaskNameWarning, setShowNoTaskNameWarning] = useState(false);
   const [activeAccordionKey, setActiveAccordionKey] = useState("0");
   const [completedTasks, setCompletedTasks] = useState(new Map());
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
+  const [confettiExploding, setConfettiExploding] = useState(false);
+
 
   const handleInputNameChange = (event) => {
     setCurrTaskName(event.target.value);
@@ -53,7 +59,6 @@ const App = () => {
     const newTask = {
       id: taskCount,
       mainTask: effectiveTaskName,
-      subtasks: [{name: "rrr", dueDate: "23332"}],
       priority: currPriority,
       taskStatus: "new",
       dueDate: currDueDate !== "" ? currDueDate : getToday(),
@@ -72,13 +77,23 @@ const App = () => {
     setShowNoTaskNameWarning(false);
   };
 
-  const deleteTask = (taskName) => {
-    setTasks((prevTasks) => {
-      const newTasks = new Map(prevTasks);
-      newTasks.delete(taskName);
-      return newTasks;
-    });
+  // Confirm task deletion with modal window
+  const requestDeleteTask = (taskName) => {
+    setIsDeleteModalVisible(true);
+    setTaskToDelete(taskName);
   };
+  
+  const confirmDeleteTask = () => {
+    if(taskToDelete !== null) {
+      setTasks((prevTasks) => {
+        const newTasks = new Map(prevTasks);
+        newTasks.delete(taskToDelete);
+        return newTasks;
+      });
+      setIsDeleteModalVisible(false);
+      setTaskToDelete(null);
+    }
+  };  
 
   const toggleTaskCompletion = (taskName) => {
     if (tasks.has(taskName)) {
@@ -90,6 +105,7 @@ const App = () => {
       setTasks(newTasks);
       setCompletedTasks(newCompletedTasks);
       setActiveAccordionKey("1");
+      setConfettiExploding(true);
 
     } else if (completedTasks.has(taskName)) {
       const updatedTask = { ...completedTasks.get(taskName), isCompleted: false };
@@ -100,6 +116,7 @@ const App = () => {
       setCompletedTasks(newCompletedTasks);
       setTasks(newTasks);
       setActiveAccordionKey("0");
+      setConfettiExploding(false);
     }
   };
 
@@ -107,20 +124,7 @@ const App = () => {
   const toggleAccordion = (key) => {
     setActiveAccordionKey(activeAccordionKey === key ? null : key);
   };
-
-  const addSubtaskToTask = (taskId, newSubtask) => {
-    setTasks(prevTasks => {
-      const updatedTasks = new Map(prevTasks);
-      const task = updatedTasks.get(taskId);
-      if (task) {
-        const updatedSubtasks = [...task.subtasks, newSubtask];
-        const updatedTask = { ...task, subtasks: updatedSubtasks };
-        updatedTasks.set(taskId, updatedTask);
-      }
-      return updatedTasks;
-    });
-  };
-
+  
   return (
     <div className="App">
       <div className="website-title-container">
@@ -156,6 +160,14 @@ const App = () => {
           {showNoTaskNameWarning && <p className="input-warning">Enter a name for your task.</p>}
           {showDuplicateWarning && <p className="input-warning">This task already exists.</p>}
         </div>
+
+        <ModalDeleteTask 
+        show={isDeleteModalVisible} 
+        onHide={() => setIsDeleteModalVisible(false)} 
+        onConfirm={confirmDeleteTask} 
+        />
+
+        {confettiExploding?<ConfettiExplosion />: ""}
       </div>
 
   <Accordion className="accordion" activeKey={activeAccordionKey} onSelect={(key) => toggleAccordion(key)} flush>
@@ -168,14 +180,12 @@ const App = () => {
               key={taskInfo.id}
               id={taskInfo.id}
               mainTask={taskInfo.mainTask}
-              subtasks={taskInfo.subtasks}
               priority={taskInfo.priority}
               taskStatus={taskInfo.taskStatus}
               dueDate={taskInfo.dueDate}
-              deleteTask={() => deleteTask(taskInfo.id)}
-              toggleCompletion={() => toggleTaskCompletion(taskInfo.id)}
+              deleteTask={() => requestDeleteTask(task)}
               isCompleted={taskInfo.completed}
-              addSubtask={(newSubtask) => addSubtaskToTask(taskInfo.id, newSubtask)}
+              toggleCompletion={() => toggleTaskCompletion(taskInfo.mainTask)}
             />
           ))
         }
@@ -191,14 +201,12 @@ const App = () => {
                 key={taskInfo.id}
                 id={taskInfo.id}
                 mainTask={taskInfo.mainTask}
-                subtasks={taskInfo.subtasks}
                 priority={taskInfo.priority}
                 taskStatus={taskInfo.taskStatus}
                 dueDate={taskInfo.dueDate}
-                deleteTask={() => deleteTask(task)}
+                deleteTask={() => requestDeleteTask(task)}
                 isCompleted={true}
                 toggleCompletion={() => toggleTaskCompletion(task)} 
-                addSubtask={(newSubtask) => addSubtaskToTask(taskInfo.id, newSubtask)}
                 />
               ))
             }

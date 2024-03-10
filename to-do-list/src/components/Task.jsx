@@ -1,8 +1,7 @@
 import "../styles/Task.css";
-import ModalNewSubtask from "./ModalNewSubtask";
 
 // eslint-disable-next-line react/prop-types
-const Task = ({taskName, dueDate, toggleCompletion, isCompleted, priority, addSubtask, id}) => {
+const Task = ({taskName, dueDate, toggleCompletion, isCompleted, priority, deleteTask}) => {
     return (
         <div className={`Task ${isCompleted ? 'completed' : ''} ${priority}`}>
             <input 
@@ -17,7 +16,9 @@ const Task = ({taskName, dueDate, toggleCompletion, isCompleted, priority, addSu
             <span className="due-date">Due: {dueDate}</span>
 
             <div className="task-tools">
-            <ModalNewSubtask addSubtask={addSubtask} taskId={id} />
+                <button className="delete-super-task-btn" onClick={deleteTask}>
+                    <img className="task-tool-img" src="./images/x-solid.svg" alt="Delete Task"/>
+                </button>
             </div>
         </div>
     );
