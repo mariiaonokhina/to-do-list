@@ -1,26 +1,27 @@
+/* eslint-disable react/prop-types */
 import Task from './Task';
 import Subtask from './Subtask';
 import '../styles/TaskContainer.css';
 
-// eslint-disable-next-line react/prop-types
-const TaskContainer = ({mainTask, subtasks, priority, dueDate, deleteTask, toggleCompletion, isCompleted}) => {
+const TaskContainer = ({mainTask, id, subtasks, priority, dueDate, deleteTask, toggleCompletion, isCompleted, addSubtask}) => {
   return (
     <div className="TaskContainer">
-
       <Task 
         taskName={mainTask} 
         dueDate={dueDate} 
         toggleCompletion={() => toggleCompletion(mainTask)} 
         isCompleted={isCompleted} 
-        priority={priority}
+        priority={priority} 
+        addSubtask={addSubtask}
+        id={id}
       />
 
-      {subtasks && subtasks.map((subtask, index) => (
-        <Subtask key={index} {...subtask} />
-      ))}
+      {Array.isArray(subtasks) && subtasks.length != 0? subtasks.map((subtask, index) => (
+        <Subtask key={index} name={subtask.name} dueDate={subtask.dueDate} />
+      )) : ""}
 
       <button className="delete-super-task-btn" onClick={deleteTask}>
-        <img src="./images/x-solid.svg" className="task-tool-img" />
+        <img className="task-tool-img" src="./images/x-solid.svg" alt="Delete Task"/>
       </button>
     </div>
   );

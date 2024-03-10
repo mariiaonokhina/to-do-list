@@ -1,11 +1,12 @@
 import "../styles/Subtask.css";
 
-/* eslint-disable react/prop-types */
-const Subtask = ({subtask}) => {
-    return(
-        <div className="Subtask">
-            {subtask}
-        </div>
-    )
-}
+// eslint-disable-next-line react/prop-types
+const Subtask = ({name, dueDate}) => {
+  return (
+    <div className="Subtask">
+      {name} - Due: {dueDate}
+    </div>
+  );
+};
+
 export default Subtask;

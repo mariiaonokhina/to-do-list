@@ -2,7 +2,8 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-const ModalNewSubtask = (addSubtask) => {
+// eslint-disable-next-line react/prop-types
+const ModalNewSubtask = ({addSubtask, taskId}) => {
     const getToday = () => {
         const today = new Date();
         const month = today.getMonth() + 1 < 10 ? `0${today.getMonth() + 1}` : today.getMonth() + 1;
@@ -11,19 +12,28 @@ const ModalNewSubtask = (addSubtask) => {
         return `${year}-${month}-${date}`;
     };
 
-  const [show, setShow] = useState(false);
-  const [subtaskName, setSubtaskName] = useState("");
-  const [subtaskDueDate, setSubtaskDueDate] = useState(getToday());
-  const [subtaskPriority, setSubtaskPriority] = useState("low");
+    const [show, setShow] = useState(false);
+    const [subtaskName, setSubtaskName] = useState("");
+    const [subtaskDueDate, setSubtaskDueDate] = useState("");
+    const [subtaskPriority, setSubtaskPriority] = useState("low");
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addSubtask({ name: subtaskName, dueDate: subtaskDueDate, priority: subtaskPriority });
-    setShow(false);
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        addSubtask(taskId, {
+            name: subtaskName,
+            dueDate: subtaskDueDate,
+            priority: subtaskPriority,
+        });
+
+        // Reset the modal's form fields for the next use
+        setSubtaskName("");
+        setSubtaskDueDate("");
+        setSubtaskPriority("low");
+        handleClose(); // Close the modal window
+    };
 
   return (
     <div>
@@ -56,8 +66,8 @@ const ModalNewSubtask = (addSubtask) => {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" type="submit">
-              Add Subtask
+            <Button variant="primary" type="submit" onClick={handleSubmit}>
+                Add Subtask
             </Button>
           </form>
         </Modal.Body>

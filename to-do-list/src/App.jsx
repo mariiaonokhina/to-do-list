@@ -53,7 +53,7 @@ const App = () => {
     const newTask = {
       id: taskCount,
       mainTask: effectiveTaskName,
-      subtasks: ["subtask"],
+      subtasks: [{name: "rrr", dueDate: "23332"}],
       priority: currPriority,
       taskStatus: "new",
       dueDate: currDueDate !== "" ? currDueDate : getToday(),
@@ -108,6 +108,19 @@ const App = () => {
     setActiveAccordionKey(activeAccordionKey === key ? null : key);
   };
 
+  const addSubtaskToTask = (taskId, newSubtask) => {
+    setTasks(prevTasks => {
+      const updatedTasks = new Map(prevTasks);
+      const task = updatedTasks.get(taskId);
+      if (task) {
+        const updatedSubtasks = [...task.subtasks, newSubtask];
+        const updatedTask = { ...task, subtasks: updatedSubtasks };
+        updatedTasks.set(taskId, updatedTask);
+      }
+      return updatedTasks;
+    });
+  };
+
   return (
     <div className="App">
       <div className="website-title-container">
@@ -154,14 +167,15 @@ const App = () => {
             <TaskContainer
               key={taskInfo.id}
               id={taskInfo.id}
-              mainTask={task}
+              mainTask={taskInfo.mainTask}
               subtasks={taskInfo.subtasks}
               priority={taskInfo.priority}
               taskStatus={taskInfo.taskStatus}
               dueDate={taskInfo.dueDate}
-              deleteTask={() => deleteTask(task)}
-              toggleCompletion={() => toggleTaskCompletion(task)}
+              deleteTask={() => deleteTask(taskInfo.id)}
+              toggleCompletion={() => toggleTaskCompletion(taskInfo.id)}
               isCompleted={taskInfo.completed}
+              addSubtask={(newSubtask) => addSubtaskToTask(taskInfo.id, newSubtask)}
             />
           ))
         }
@@ -176,14 +190,15 @@ const App = () => {
               <TaskContainer
                 key={taskInfo.id}
                 id={taskInfo.id}
-                mainTask={task}
+                mainTask={taskInfo.mainTask}
                 subtasks={taskInfo.subtasks}
                 priority={taskInfo.priority}
                 taskStatus={taskInfo.taskStatus}
                 dueDate={taskInfo.dueDate}
                 deleteTask={() => deleteTask(task)}
                 isCompleted={true}
-                toggleCompletion={() => toggleTaskCompletion(task)}
+                toggleCompletion={() => toggleTaskCompletion(task)} 
+                addSubtask={(newSubtask) => addSubtaskToTask(taskInfo.id, newSubtask)}
                 />
               ))
             }

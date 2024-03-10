@@ -2,7 +2,7 @@ import "../styles/Task.css";
 import ModalNewSubtask from "./ModalNewSubtask";
 
 // eslint-disable-next-line react/prop-types
-const Task = ({taskName, dueDate, toggleCompletion, isCompleted, priority}) => {
+const Task = ({taskName, dueDate, toggleCompletion, isCompleted, priority, addSubtask, id}) => {
     return (
         <div className={`Task ${isCompleted ? 'completed' : ''} ${priority}`}>
             <input 
@@ -17,7 +17,7 @@ const Task = ({taskName, dueDate, toggleCompletion, isCompleted, priority}) => {
             <span className="due-date">Due: {dueDate}</span>
 
             <div className="task-tools">
-                <ModalNewSubtask />
+            <ModalNewSubtask addSubtask={addSubtask} taskId={id} />
             </div>
         </div>
     );
