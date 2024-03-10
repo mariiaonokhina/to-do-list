@@ -12,7 +12,7 @@ const TaskContainer = ({mainTask, subtasks, priority, dueDate, deleteTask, toggl
         dueDate={dueDate} 
         toggleCompletion={() => toggleCompletion(mainTask)} 
         isCompleted={isCompleted} 
-        priority={priority}
+        priority={priority} 
       />
 
       {subtasks && subtasks.map((subtask, index) => (

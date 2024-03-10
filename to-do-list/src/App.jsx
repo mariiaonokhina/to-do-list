@@ -1,5 +1,5 @@
 import './styles/App.css';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "react-bootstrap";
 import TaskContainer from './components/TaskContainer';
 import Accordion from 'react-bootstrap/Accordion';
