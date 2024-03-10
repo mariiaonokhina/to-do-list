@@ -12,7 +12,7 @@ const TaskContainer = ({mainTask, subtasks, priority, dueDate, deleteTask, toggl
         dueDate={dueDate} 
         toggleCompletion={() => toggleCompletion(mainTask)} 
         isCompleted={isCompleted} 
-        priority={priority} 
+        priority={priority}
       />
 
       {subtasks && subtasks.map((subtask, index) => (
@@ -20,7 +20,7 @@ const TaskContainer = ({mainTask, subtasks, priority, dueDate, deleteTask, toggl
       ))}
 
       <button className="delete-super-task-btn" onClick={deleteTask}>
-        <img className="task-tool-img" src="./images/x-solid.svg"></img>
+        <img src="./images/x-solid.svg" className="task-tool-img" />
       </button>
     </div>
   );
