@@ -26,7 +26,7 @@
 }
 
 .due-date {
-    width: 8vw;
+    width: 10vw;
 }
 
 .task-tools {
@@ -41,7 +41,9 @@
 .task-tool-btn {
     width: 3vh;
     height: 3vh;
-    
+    display: flex;
+    place-items: center;
+    justify-content: center;
 }
 
 .task-tool-img {
