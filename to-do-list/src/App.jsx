@@ -167,14 +167,13 @@ const App = () => {
         onHide={() => setIsDeleteModalVisible(false)} 
         onConfirm={confirmDeleteTask} 
         />
-
-        {confettiExploding?<ConfettiExplosion />: ""}
       </div>
-
+  
   <Accordion className="accordion" activeKey={activeAccordionKey} onSelect={(key) => toggleAccordion(key)} flush>
   <Accordion.Item className="todos-container" eventKey="0">
     <Accordion.Header className="accordion-header">My ToDos</Accordion.Header>
       <Accordion.Body>
+      {confettiExploding?<ConfettiExplosion />: ""}
         {tasks.size === 0 ? "No tasks. Click the [+] button to add a task!" :
           [...tasks.entries()].map(([task, taskInfo]) => (
             <TaskContainer
