@@ -139,7 +139,8 @@ const App = () => {
                  name="taskName"
                  placeholder="Enter the name of your task..."
                  value={currTaskName}
-                 onChange={handleInputNameChange} />
+                 onChange={handleInputNameChange} 
+                 maxLength="40"/>
                 
           <select name="priority" className="priority-select" onChange={handleInputPriorityChange}>
             <option value="low">Low Priority</option>
@@ -174,7 +175,7 @@ const App = () => {
   <Accordion.Item className="todos-container" eventKey="0">
     <Accordion.Header className="accordion-header">My ToDos</Accordion.Header>
       <Accordion.Body>
-        {tasks.size === 0 ? "No tasks :( Click the [+] button to add a task!" :
+        {tasks.size === 0 ? "No tasks. Click the [+] button to add a task!" :
           [...tasks.entries()].map(([task, taskInfo]) => (
             <TaskContainer
               key={taskInfo.id}
